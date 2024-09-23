@@ -1,0 +1,269 @@
+---
+title: Week 4 HW
+author: "Author: Jessica Panicker"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    fig_caption: yes
+    code_folding: hide
+    number_sections: true
+  pdf_document:
+    toc: true
+vignette: >
+    %\VignetteIndexEntry{Text}
+    %\usepackage[utf8]{inputenc}
+    %\VignetteEngine{knitr::rmarkdown}
+fontsize: 15pt
+editor_options: 
+  chunk_output_type: console
+---
+
+<style>
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: auto !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+body {
+text-align: justify}
+</style>
+
+
+# Question 1
+
+## Part A
+
+> smpl.sizes <- c(1,2,4,8,16,32,64,128)
+> r.mu <- numeric()
+> r.sem <- c(r.sem, sd(mu.tmp))
+> r.sem <- numeric ()
+> n.sim <- 1000
+> for (i.smpl in smpl.sizes) {
++ r.mat <- matrix (rexp(i.smpl*n.sim), 
++ nrow = n.sim, ncol= i.smpl)
++ mu.tmp <- apply(r.mat, 1, mean)
++ r.mu <- c(r.mu, mean(mu.tmp))
++ r.sem <- c(r.sem, sd(mu.tmp))
++ }
+> plot (c(min(smpl.sizes),max(smpl.sizes)),
++  c(min(c(r.mu,r.sem)),
++  max(c(r.mu,r.sem))),
++  type="n",ylab="Mean and SEM",
++  xlab="n",sub=paste(n.sim,"sims"))
+> points(smpl.sizes,r.mu,type="l",lty=2)
+> points(smpl.sizes,r.sem,col="blue")
+> points(smpl.sizes,1/sqrt(smpl.sizes),
++  type="l",col="blue")
+
+
+
+## Part B
+
+> confint(lm(x~1))
+                2.5 %    97.5 %
+(Intercept) -1.417778 0.1294411
+> summary(lm(x~1))$coefficients
+              Estimate Std. Error   t value   Pr(>|t|)
+(Intercept) -0.6441684  0.2786331 -2.311888 0.08186239
+> mean(x)
+[1] -0.6441684
+> sd(x)
+[1] 0.6230425
+> s <- sd(x)
+> qt(.975, 4)
+[1] 2.776445
+> m <- mean(x)
+> q <- qt(.975, 4)
+> m + q*s/sqrt(5)
+[1] 0.1294411
+> m- q*s/sqrt(5)
+[1] -1.417778
+
+## Part C
+
+> smpl.sizes <- 2^(0:8)
+> n.sim <- 1000
+> old.par <- par(mfrow=c(3,3), ps=20)
+> for ( i.smpl in smpl.sizes ) {
++ x.tmp <- rbinom(n.sim, i.simpl, 0.5)
++ plot(hist(x.tmp,plot=F),
++  main=paste("n =",i.smpl),
++  xlab="Sum(Xn)",ylab="N(sum)")
++  }
+Error: object 'i.simpl' not found
+> for ( i.smpl in smpl.sizes ) {
++ x.tmp <- rbinom(n.sim, i.smpl, 0.5)
++ plot(hist(x.tmp,plot=F),
++  main=paste("n =",i.smpl),
++  xlab="Sum(Xn)",ylab="N(sum)")
++  }
+
+# Question 2
+
+## Part A
+
+> smpl.sizes <- c(1,2,4,8,16,32,64,128)
+> r.mu <- numeric()
+> r.sem <- c(r.sem, sd(mu.tmp))
+> r.sem <- numeric ()
+> n.sim <- 1000
+> for (i.smpl in smpl.sizes) {
++ r.mat <- matrix (rexp(i.smpl*n.sim), 
++ nrow = n.sim, ncol= i.smpl)
++ mu.tmp <- apply(r.mat, 1, mean)
++ r.mu <- c(r.mu, mean(mu.tmp))
++ r.sem <- c(r.sem, sd(mu.tmp))
++ }
+> plot (c(min(smpl.sizes),max(smpl.sizes)),
++  c(min(c(r.mu,r.sem)),
++  max(c(r.mu,r.sem))),
++  type="n",ylab="Mean and SEM",
++  xlab="n",sub=paste(n.sim,"sims"))
+> points(smpl.sizes,r.mu,type="l",lty=2)
+> points(smpl.sizes,r.sem,col="blue")
+> points(smpl.sizes,sqrt((max(smpl.sizes)-min(smpl.sizes))^2/12)/sqrt(smple.sizes),
++  type="l",col="blue")
+
+
+
+## Part B
+a <- 0
+b <- 1
+x <- runif(100, min=a, max=b)
+> confint(lm(x~1))
+                2.5 %    97.5 %
+(Intercept) -1.417778 0.1294411
+> summary(lm(x~1))$coefficients
+              Estimate Std. Error   t value   Pr(>|t|)
+(Intercept) -0.6441684  0.2786331 -2.311888 0.08186239
+> mean(x)
+[1] -0.6441684
+> sd(x)
+[1] 0.6230425
+> s <- sd(x)
+> qt(.975, 4)
+[1] 2.776445
+> m <- mean(x)
+> q <- qt(.975, 4)
+> m + q*s/sqrt(5)
+[1] 0.1294411
+> m- q*s/sqrt(5)
+[1] -1.417778
+
+## Part C
+
+> smpl.sizes <- 2^(0:8)
+> n.sim <- 1000
+> old.par <- par(mfrow=c(3,3), ps=20)
+> for ( i.smpl in smpl.sizes ) {
++ x.tmp <- rbinom(n.sim, i.simpl, 0.5)
++ plot(hist(x.tmp,plot=F),
++  main=paste("n =",i.smpl),
++  xlab="Sum(Xn)",ylab="N(sum)")
++  }
+Error: object 'i.simpl' not found
+> for ( i.smpl in smpl.sizes ) {
++ x.tmp <- rbinom(n.sim, i.smpl, 0.5)
++ plot(hist(x.tmp,plot=F),
++  main=paste("n =",i.smpl),
++  xlab="Sum(Xn)",ylab="N(sum)")
++  }
+
+
+
+
+# Question 3
+n.smpl <- c(2,4,8,16,32,64,128,256,512,1024)
+n.sim <- 1000 # number of resamplings for each sample size
+all.p.norm <- numeric()
+all.p.exp <- numeric()
+all.p.unif <- numeric()
+for ( i.smpl in n.smpl ) {
+  # generate n.sim random samples of size i.simpl from exponential, normal, and uniform distributions:
+  r.mat.exp <- "matrix of exponential numbers"
+  r.mat.norm <- "matrix of normal numbers"
+  r.mat.unif <- "matrix of uniform numbers" 
+  
+  # Create objects comtaining zero to store the counts of exponential, normal, and uniform-drawn 
+  # samples that result in confidence intervals of the mean NOT containing the true mean
+  p.exp <- 0; p.norm <- 0; p.unif <- 0
+  for ( i.sim in 1:n.sim ) {
+    # calculate confidence inrtervals of the mean for each of the i.sim-th
+    # samples drawn from normal, exponential , uniform distributions:
+    # e.g.: confint(lm(x~1,DF))
+    
+    # Then:
+    # Create three if statements: 
+    # if the confidence interval of the mean of the i.sim-th normal sample DOES NOT
+    # contain the true underlying mean (which in our simulation is 0), add 1 to the counter. 
+    
+  }
+  # Finally: 
+  # Append the probabilities for the confidence interval at the current sample size that do 
+  # NOT contain the mean to the storage vectors.
+}
+
+#### Header 4
+
+# Header 1
+
+
+- list 1
+- list 2
+- list 3
+
+*italics* <br>
+**bold** <br>
+`emphasize`
+
+Adding a formula centered in the page:
+$$A=C+B$$
+
+Adding a formula within the text: $A=C+B$
+
+
+the following is an example code chunk: 
+
+
+```{r name1, eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE, class.source = "fold-show", fig.height=5, fig.width=8, results='show', cache=FALSE}
+#### Do not install packages in the code elements of the document
+# install.packages("ggplot2")
+# if (!require("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("ALL")
+
+#### loading packages is OK.
+library(ggplot2)
+```
+
+
+
+```{r, eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE, class.source = "fold-show", fig.height=5, fig.width=8, results='show', cache=FALSE}
+1:4
+plot(1:4)
+```
+
+
+
+executing `rmarkdown::render()` in the Console will knit the markdown file to a pdf or html document.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
